@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <errno.h>
+#include <pthread.h>
 #include "config.h"
 
 #define leftson(x) 2 * (x) //Filho a esquerda
