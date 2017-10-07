@@ -1,5 +1,75 @@
 #include "routing.h"
 
+//Funcao para inicializar o roteador
+void initialize(int id, int *sock, struct sockaddr_in *si_me, router_t routers[NROUT], hope_t routing_table[NROUT]){
+  int graph[NROUT][NROUT], i, j, u, v, w;
+
+  memset(graph, -1, sizeof(graph));
+  for(i = 0, j = 0; i < NROUT; i++, j++) graph[i][j] = 0; //Zera diagonal do grafo
+  FILE *links = fopen("enlaces.config", "r");
+  if(!links) die("Falha ao abrir o arquivo de enlaces\n");
+  while(fscanf(links, "%d %d %d\n", &u, &v, &w) != EOF)
+    graph[u][v] = graph[v][u] = w; //Assume-se arestas bidirecionais
+  fclose(links);
+
+  dijkstra(id, graph, routing_table);
+
+  FILE *routers_file = fopen("roteador.config", "r");
+  if(!routers_file) die("Falha ao abrir o arquivo de roteadores\n");
+  for(i = 0; fscanf(routers_file, "%d %d %s\n", &routers[i].id, &routers[i].port, routers[i].adress) != EOF; i++);
+  fclose(routers_file);
+
+  //for( i = 0; i < NROUT; i++) printf("%d %d %s\n", routers[i].id, routers[i].port, routers[i].adress);
+
+  //Cria o socket(dominio, tipo, protocolo)
+  if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
+    die("Falha ao criar Socket\n");
+  //Zera a estrutura
+  memset((char *) si_me, 0, sizeof(*si_me));
+  si_me->sin_family = AF_INET; //Familia
+  si_me->sin_port = htons(routers[id].port); //Porta em ordem de bytes de rede
+  si_me->sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
+
+  //Liga o socket a porta (atribui o endereço ao file descriptor)
+  if( bind(*sock , (struct sockaddr*) si_me, sizeof(*si_me) ) == -1)
+    die("A ligacao do socket com a porta falhou\n");
+}
+
+//Preenche o grafo e a tabela de roteamento
+void dijkstra(int id, int graph[NROUT][NROUT], hope_t routing_table[NROUT]){
+  edge_t heap[NROUT * NROUT], tmp;
+  int v, d, w, last = 0, i, parent[NROUT];
+
+  //Atribui custo e nexthope para ir de um roteador ate ele mesmo
+  routing_table[id].nhope = id;
+  routing_table[id].dist = 0;
+  for(w = 0; w < NROUT; w++) routing_table[w].dist = -1; //Seta todas distancias como -1
+  tmp.v = tmp.u = id;
+  tmp.dist = 0;
+  insert(tmp, ++last, heap); //Insere o no inicial na heap, com distancia 0
+  while(last){
+    tmp = extract(1, heap, last--); //extrai a aresta com menor custo
+    v = tmp.v; d = tmp.dist;
+    //printf("%d %d\n", v, d);
+
+    if(routing_table[v].dist != -1) continue;
+    routing_table[v].dist = d; //Atribui a distancia ao vértice
+
+    parent[v] = tmp.u; //Atribui antecessor do vértice no caminho
+    for(i = v; parent[i] != id; i = parent[i]); //Volta até o primeiro vértice antes da origem
+    routing_table[v].nhope = i; //Atribui o nexthope daquele vértice
+
+    for(w = 0; w < NROUT; w++) //Coloca as arestas vizinhas do vertice na heap
+      if(graph[v][w] != -1 && routing_table[w].dist == -1){
+        tmp.dist = d + graph[v][w];
+        tmp.u = v;
+        tmp.v = w;
+        //printf("Inserindo na heap %d->%d com custo %d\n",tmp.u, tmp.v, tmp.dist);
+        insert(tmp, ++last, heap);
+      }
+  }
+}
+
 //Funcao para imprimir mensagens de erro e encerrar o programa
 void die(char* msg){
   printf("%s\n", msg);
@@ -28,9 +98,9 @@ void print_graph(int graph[NROUT][NROUT]){
 //Funcao para imprimir tabela de roteamento de um roteador
 void print_routing_table(hope_t routing_table[NROUT]){
   int w;
-
+  printf("Destino|Proximo Salto|Custo\n");
   for(w = 0; w < NROUT; w++)
-    printf("%d| %d| %d\n",w, routing_table[w].nhope, routing_table[w].dist);
+    printf("%d      |%d            |%d\n",w, routing_table[w].nhope, routing_table[w].dist);
 }
 
 

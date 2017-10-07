@@ -1,11 +1,9 @@
 #include "routing.h"
 
-void initialize(int id, int *sock, struct sockaddr_in *si_me, router_t routers[NROUT], hope_t routing_table[NROUT]);
-void dijkstra(int id, int graph[NROUT][NROUT], hope_t routing_table[NROUT]);
-
 int main(int argc, char *argv[]){
-  int id, sock;
-  struct sockaddr_in si_me; //Endereço do roteador
+  int id, sock, i, new = 0, op = -1, snum = 0, qtmsg = 0;
+  message_t messages[BOX_SIZE], tmp;
+  struct sockaddr_in si_me, si_other; //Endereço do roteador
   hope_t routing_table[NROUT]; //Tabela de roteamento
   router_t routers[NROUT]; //Informações sobre os roteadores
 
@@ -17,79 +15,68 @@ int main(int argc, char *argv[]){
   id = toint(argv[1]);
   if(id < 0 || id >= NROUT) die("Não existe um roteador com este id");
 
+  //Zera a estrutura para envios
+  memset((char *) &si_other, 0, sizeof(si_other));
+  si_other.sin_family = AF_INET; //Familia
+  si_other.sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
   initialize(id, &sock, &si_me, routers, routing_table); //Inicializa o roteador
-  printf("\n%d %d %s\n", id, ntohs(si_me.sin_port), routers[id].adress);
-  //while(1);
-
-  return 0;
-}
-
-void initialize(int id, int *sock, struct sockaddr_in *si_me, router_t routers[NROUT], hope_t routing_table[NROUT]){
-  int graph[NROUT][NROUT], i, j, u, v, w;
-
-  memset(graph, -1, sizeof(graph));
-  for(i = 0, j = 0; i < NROUT; i++, j++) graph[i][j] = 0; //Zera diagonal do grafo
-  FILE *links = fopen("enlaces.config", "r");
-  if(!links) die("Falha ao abrir o arquivo de enlaces\n");
-  while(fscanf(links, "%d %d %d\n", &u, &v, &w) != EOF)
-    graph[u][v] = graph[v][u] = w; //Assume-se arestas bidirecionais
-  fclose(links);
-
-  dijkstra(id, graph, routing_table);
-  printf("TABELA DE ROTEAMENTO PARA O NÓ %d\n", id);
-  print_routing_table(routing_table);
-
-  FILE *routers_file = fopen("roteador.config", "r");
-  if(!routers_file) die("Falha ao abrir o arquivo de roteadores\n");
-  for(i = 0; fscanf(routers_file, "%d %d %s\n", &routers[i].id, &routers[i].port, routers[i].adress) != EOF; i++);
-  fclose(routers_file);
-
-  for( i = 0; i < NROUT; i++) printf("%d %d %s\n", routers[i].id, routers[i].port, routers[i].adress);
-
-  //Cria o socket(dominio, tipo, protocolo)
-  if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
-    die("Falha ao criar Socket\n");
-  //Zera a estrutura
-  memset((char *) si_me, 0, sizeof(*si_me));
-  si_me->sin_family = AF_INET; //Familia
-  si_me->sin_port = htons(routers[id].port); //Porta em ordem de bytes de rede
-  si_me->sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
-
-  //Liga o socket a porta (atribui o endereço ao file descriptor)
-  if( bind(*sock , (struct sockaddr*) si_me, sizeof(*si_me) ) == -1)
-    die("A ligacao do socket com a porta falhou\n");
-}
-
-void dijkstra(int id, int graph[NROUT][NROUT], hope_t routing_table[NROUT]){
-  edge_t heap[NROUT * NROUT], tmp;
-  int v, d, w, last = 0, i, parent[NROUT];
-
-  //Atribui custo e nexthope para ir de um roteador ate ele mesmo
-  routing_table[id].nhope = id;
-  routing_table[id].dist = 0;
-  for(w = 0; w < NROUT; w++) routing_table[w].dist = -1; //Seta todas distancias como -1
-  tmp.v = tmp.u = id;
-  tmp.dist = 0;
-  insert(tmp, ++last, heap); //Insere o no inicial na heap, com distancia 0
-  while(last){
-    tmp = extract(1, heap, last--); //extrai a aresta com menor custo
-    v = tmp.v; d = tmp.dist;
-    //printf("%d %d\n", v, d);
-
-    if(routing_table[v].dist != -1) continue;
-    routing_table[v].dist = d; //Atribui a distancia ao vértice
-
-    parent[v] = tmp.u; //Atribui antecessor do vértice no caminho
-    for(i = v; parent[i] != id; i = parent[i]); //Volta até o primeiro vértice antes da origem
-    routing_table[v].nhope = i; //Atribui o nexthope daquele vértice
-
-    for(w = 0; w < NROUT; w++) //Coloca as arestas vizinhas do vertice na heap
-      if(graph[v][w] != -1 && routing_table[w].dist == -1){
-        tmp.dist = d + graph[v][w];
-        tmp.u = v;
-        tmp.v = w;
-        //printf("Inserindo na heap %d->%d com custo %d\n",tmp.u, tmp.v, tmp.dist);
-        insert(tmp, ++last, heap);
+  //printf("\n%d %d %s\n", id, ntohs(si_me.sin_port), routers[id].adress);
+  while(1){
+    system("clear");
+    if(op == -1){
+      printf("ROTEADOR %d\n", id);
+      printf("------------------------------------------------------\n");
+      printf("%d novas mensagens\n\n", new);
+      printf("1 - Checar Tabela de Roteamento\n");
+      printf("2 - Ler Mensagens\n");
+      printf("3 - Escrever Mensagem\n");
+      printf("4 - Sair\n\n");
+      scanf("%d", &op);
+    }
+    else if(op == 1){
+      print_routing_table(routing_table);
+      printf("\nInsira 0 para voltar\n");
+      scanf("%d", &op);
+      if(op == 0) op = -1;
+      else op = 1;
+    }
+    else if(op == 2){
+      for(i = 0; i < qtmsg; i++){
+        printf("De %d: %s\n", messages[i].orig, messages[i].msg);
       }
+      printf("\nInsira 0 para voltar\n");
+      scanf("%d", &op);
+      if(op == 0) op = -1;
+      else op = 1;
+    }
+    else if(op == 3){
+      printf("Insira o numero do roteador que ira receber a mensagem:\n");
+      scanf("%d", &tmp.dest);
+      if(tmp.dest < 0 || tmp.dest >= NROUT) printf("\nEsse roteador nao existe!\n");
+      else{
+        getchar();
+        printf("\nInsira a mensagem com no maximo %d caracteres:\n", MESSAGE_SIZE);
+        fgets(tmp.msg, MESSAGE_SIZE, stdin);
+        tmp.orig = id;
+
+        //Atribui porta e o endereco para qual sera enviada a mensagem
+        si_other.sin_port = htons(routers[tmp.dest].port);
+        if (inet_aton(routers[tmp.dest].adress , &si_other.sin_addr) == 0)
+            printf("Falha ao obter endereco do destinatario\n");
+        else{
+          //Envia para o socket requisitado(socket, dados, tamanho dos dados, flags, endereço, tamanho do endereço)
+          if (sendto(sock, &tmp, sizeof(tmp), 0, (struct sockaddr*) &si_other, sizeof(si_other)) == -1)
+            printf("\nFalha ao enviar mensagem...\n");
+          else printf("\nMensagem enviada!\n");
+        }
+      }
+      sleep(3);
+      op = -1;
+    }
+    if(op == 4){
+      system("clear");
+      exit(0);
+    }
   }
+
 }

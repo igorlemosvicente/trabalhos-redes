@@ -27,6 +27,13 @@ typedef struct{
   char adress[30];
 } router_t;
 
+typedef struct{
+  int orig, dest, num;
+  char msg[MESSAGE_SIZE+1];
+} message_t;
+
+void initialize(int id, int *sock, struct sockaddr_in *si_me, router_t routers[NROUT], hope_t routing_table[NROUT]);
+void dijkstra(int id, int graph[NROUT][NROUT], hope_t routing_table[NROUT]);
 void die(char* msg);
 int toint(char *str);
 void print_graph(int graph[NROUT][NROUT]);
