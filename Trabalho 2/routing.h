@@ -29,7 +29,7 @@ typedef struct{
 
 //Estrutura de pacote
 typedef struct{
-  int control, dest;
+  int control, dest, orig;
   char message[MAX_MESSAGE];
   dist_t dist_vector[NROUT];
 }package_t;

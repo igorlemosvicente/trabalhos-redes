@@ -80,6 +80,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   for(i = 0; i < *neigh_qtty; i++, out->end++){
     package_t *pck = &(out->queue[out->end]);
     pck->control = 1;
+    pck->orig = id;
     pck->dest = neigh_list[i];
     //printf("Enfileirando pacote de vetor de distancia para o destino %d\n", pck->dist);
     //printf("Vetor de distancia enviado: ");
@@ -97,7 +98,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     die("Falha ao criar Socket\n");
 
-  //Inicializa endereços de estrutura  
+  //Inicializa endereços de estrutura
   memset((char *) si_me, 0, sizeof(*si_me)); //Zera a estrutura
   si_me->sin_family = si_send->sin_family = AF_INET; //Familia
   si_me->sin_addr.s_addr = si_send->sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
@@ -114,12 +115,12 @@ void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_l
     neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]){
   int i, j;
 
-  printf("O nó %d, está conectado à porta %d, Seu endereço é %s\n\n", id, port, adress);
-  printf("Seus vizinhos são:\n");
-  for(i = 0; i < neigh_qtty; i++)
-    printf("O roteador %d, com enlace de custo %d, na porta %d, e endereço %s\n", neigh_list[i],
-      neigh_info[neigh_list[i]].cost, neigh_info[neigh_list[i]].port, neigh_info[neigh_list[i]].adress);
-  printf("\n");
+  // printf("O nó %d, está conectado à porta %d, Seu endereço é %s\n\n", id, port, adress);
+  // printf("Seus vizinhos são:\n");
+  // for(i = 0; i < neigh_qtty; i++)
+  //   printf("O roteador %d, com enlace de custo %d, na porta %d, e endereço %s\n", neigh_list[i],
+  //     neigh_info[neigh_list[i]].cost, neigh_info[neigh_list[i]].port, neigh_info[neigh_list[i]].adress);
+  // printf("\n");
 
   printf("Essa é sua tabela de roteamento, atualmente:\n");
   for(i = 0; i < NROUT; i++){
@@ -137,6 +138,7 @@ void copy_package(package_t *a, package_t *b){
 
   b->control = a->control;
   b->dest = a->dest;
+  b->orig = a->orig;
   strcpy(b->message, a->message);
   for(i = 0; i < NROUT; i++){
     b->dist_vector[i].dist = a->dist_vector[i].dist;
