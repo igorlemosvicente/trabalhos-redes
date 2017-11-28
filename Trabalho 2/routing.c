@@ -63,7 +63,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   //Custo de um nó para ele mesmo é 0, via ele mesmo
   routing_table[id][id].dist = 0;
   routing_table[id][id].nhop = id;
-  //Preenche seu vetor de distância
+  //Preenche o vetor de distâncias inicial do nó
   for(i = 0; i < *neigh_qtty; i++){
     u = id; v = neigh_list[i];
     routing_table[u][v].dist = neigh_info[v].cost;
@@ -97,6 +97,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     die("Falha ao criar Socket\n");
 
+  //Inicializa endereços de estrutura  
   memset((char *) si_me, 0, sizeof(*si_me)); //Zera a estrutura
   si_me->sin_family = si_send->sin_family = AF_INET; //Familia
   si_me->sin_addr.s_addr = si_send->sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
@@ -108,6 +109,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
 
 }
 
+//Imprime informações sobre o roteador
 void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_list[NROUT],
     neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]){
   int i, j;
@@ -129,6 +131,7 @@ void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_l
   }
 }
 
+//Copia o pacote a para o pacote b
 void copy_package(package_t *a, package_t *b){
   int i;
 
