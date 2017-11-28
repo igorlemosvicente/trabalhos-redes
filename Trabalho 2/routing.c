@@ -16,8 +16,9 @@ int toint(char *str){
 }
 
 //Função com rotina de inicialização dos roteadores
-void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me, int neigh_list[NROUT],
-                                    neighbour_t neigh_info[NROUT], int *neigh_qtty, dist_t routing_table[NROUT][NROUT]){
+void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
+                struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
+                int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out){
   int new_id, new_port, u, v, w, i, j;
   char tmp[MAX_ADRESS];
 
@@ -59,8 +60,9 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   }
   fclose(routers_file);
 
-  //Custo de um nó para ele mesmo é 0
+  //Custo de um nó para ele mesmo é 0, via ele mesmo
   routing_table[id][id].dist = 0;
+  routing_table[id][id].nhop = id;
   //Preenche seu vetor de distância
   for(i = 0; i < *neigh_qtty; i++){
     u = id; v = neigh_list[i];
@@ -68,14 +70,37 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
     routing_table[u][v].nhop = neigh_info[v].id;
   }
 
+  //Inicializa as filas de entrada e saida
+  in->begin = out->begin = in->end = out->end = 0;
+  pthread_mutex_init(&(in->mutex), NULL);
+  pthread_mutex_init(&(out->mutex), NULL);
+
+  //Coloca na fila de envio, um pacote para cada um de seus vizinhos, com o
+  //vetor de distancias inicial do nó
+  for(i = 0; i < *neigh_qtty; i++, out->end++){
+    package_t *pck = &(out->queue[out->end]);
+    pck->control = 1;
+    pck->dest = neigh_list[i];
+    //printf("Enfileirando pacote de vetor de distancia para o destino %d\n", pck->dist);
+    //printf("Vetor de distancia enviado: ");
+    for(j = 0; j < NROUT; j++){
+      pck->dist_vector[j].dist = routing_table[id][j].dist;
+      pck->dist_vector[j].nhop = routing_table[id][j].nhop;
+      //printf("(%d,%d) ", pck->dist_vector[j].dist, pck->dist_vector[j].nhop);
+    }
+    //printf("\n\n");
+  }
+  //printf("%d pacotes de controle enfileirados!\n", out->end - out->begin);
+
+
   //Cria o socket(dominio, tipo, protocolo)
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     die("Falha ao criar Socket\n");
 
   memset((char *) si_me, 0, sizeof(*si_me)); //Zera a estrutura
-  si_me->sin_family = AF_INET; //Familia
-  si_me->sin_port = htons(port); //Porta em ordem de bytes de rede
-  si_me->sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
+  si_me->sin_family = si_send->sin_family = AF_INET; //Familia
+  si_me->sin_addr.s_addr = si_send->sin_addr.s_addr = htonl(INADDR_ANY); //Atribui o socket a todo tipo de interface
+  si_me->sin_port = htons(*port); //Porta em ordem de bytes de rede
 
   //Liga o socket a porta (atribui o endereço ao file descriptor)
   if( bind(*sock , (struct sockaddr*) si_me, sizeof(*si_me) ) == -1)
@@ -101,5 +126,17 @@ void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_l
       else printf("I ");
     }
     printf("\n");
+  }
+}
+
+void copy_package(package_t *a, package_t *b){
+  int i;
+
+  b->control = a->control;
+  b->dest = a->dest;
+  strcpy(b->message, a->message);
+  for(i = 0; i < NROUT; i++){
+    b->dist_vector[i].dist = a->dist_vector[i].dist;
+    b->dist_vector[i].nhop = a->dist_vector[i].nhop;
   }
 }
