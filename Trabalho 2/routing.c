@@ -22,8 +22,6 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   int new_id, new_port, u, v, w, i, j;
   char tmp[MAX_ADRESS];
 
-  //printf("Oi, sou o %d, Vou inicializar e vai ficar tudo bem\n", id);
-
   //Inicializa o vetor de informações de vizinhos e a tabela de roteamento
   for(i = 0; i < NROUT; i++){
     neigh_info[i].id = neigh_info[i].port = -1;
@@ -45,6 +43,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
       neigh_info[v].cost = w;
     }
   }
+
   //Abre o arquivo de roteadores, e Le dele a porta e o endereço do roteador
   FILE *routers_file = fopen("roteador.config", "r");
   if(!routers_file) die("Falha ao abrir arquivo de roteadores");
@@ -63,6 +62,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   //Custo de um nó para ele mesmo é 0, via ele mesmo
   routing_table[id][id].dist = 0;
   routing_table[id][id].nhop = id;
+
   //Preenche o vetor de distâncias inicial do nó
   for(i = 0; i < *neigh_qtty; i++){
     u = id; v = neigh_list[i];
@@ -74,25 +74,6 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   in->begin = out->begin = in->end = out->end = 0;
   pthread_mutex_init(&(in->mutex), NULL);
   pthread_mutex_init(&(out->mutex), NULL);
-
-  //Coloca na fila de envio, um pacote para cada um de seus vizinhos, com o
-  //vetor de distancias inicial do nó
-  for(i = 0; i < *neigh_qtty; i++, out->end++){
-    package_t *pck = &(out->queue[out->end]);
-    pck->control = 1;
-    pck->orig = id;
-    pck->dest = neigh_list[i];
-    //printf("Enfileirando pacote de vetor de distancia para o destino %d\n", pck->dist);
-    //printf("Vetor de distancia enviado: ");
-    for(j = 0; j < NROUT; j++){
-      pck->dist_vector[j].dist = routing_table[id][j].dist;
-      pck->dist_vector[j].nhop = routing_table[id][j].nhop;
-      //printf("(%d,%d) ", pck->dist_vector[j].dist, pck->dist_vector[j].nhop);
-    }
-    //printf("\n\n");
-  }
-  //printf("%d pacotes de controle enfileirados!\n", out->end - out->begin);
-
 
   //Cria o socket(dominio, tipo, protocolo)
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
@@ -125,8 +106,8 @@ void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_l
   printf("Essa é sua tabela de roteamento, atualmente:\n");
   for(i = 0; i < NROUT; i++){
     for(j = 0; j < NROUT; j++){
-      if(routing_table[i][j].dist != INF) printf("%d ", routing_table[i][j].dist);
-      else printf("I ");
+      if(routing_table[i][j].dist != INF) printf("%d(%d) ", routing_table[i][j].dist, routing_table[i][j].nhop);
+      else printf("I(X) ");
     }
     printf("\n");
   }
@@ -144,4 +125,49 @@ void copy_package(package_t *a, package_t *b){
     b->dist_vector[i].dist = a->dist_vector[i].dist;
     b->dist_vector[i].nhop = a->dist_vector[i].nhop;
   }
+}
+
+//Enfilera um pacote para cada vizinho do nó, contendo seu vetor de distancia
+void queue_dist_vec(pack_queue_t *out, int neigh_list[NROUT], dist_t routing_table[NROUT][NROUT],
+                    int id, int neigh_qtty){
+  int i, j;
+
+  pthread_mutex_lock(&(out->mutex));
+  for(i = 0; i < neigh_qtty; i++, out->end++){
+    package_t *pck = &(out->queue[out->end]);
+    pck->control = 1;
+    pck->orig = id;
+    pck->dest = neigh_list[i];
+    //printf("Enfileirando pacote de vetor de distancia para o destino %d\n", pck->dist);
+    //printf("Vetor de distancia enviado: ");
+    for(j = 0; j < NROUT; j++){
+      pck->dist_vector[j].dist = routing_table[id][j].dist;
+      pck->dist_vector[j].nhop = routing_table[id][j].nhop;
+      //printf("(%d,%d) ", pck->dist_vector[j].dist, pck->dist_vector[j].nhop);
+    }
+  }
+  pthread_mutex_unlock(&(out->mutex));
+}
+
+//Funcao que imprime tudo que está numa fila
+void print_pack_queue(pack_queue_t *queue){
+  int i, j;
+  package_t *pck;
+
+  pthread_mutex_lock(&(queue->mutex));
+  printf("%d Pacotes nessa fila:\n", queue->end - queue->begin);
+  for(i = queue->begin; i < queue->end; i++){
+    pck = &(queue->queue[i]);
+    printf("\nPacote %s de controle, Destino: %d, Origem: %d\n", pck->control ? "é" : "não é", pck->dest, pck->orig);
+    if(pck->control){
+      printf("Vetor de distância do pacote: ");
+      for(j = 0; j < NROUT; j++){
+        printf("(%d,%d), ", pck->dist_vector[j].dist, pck->dist_vector[j].nhop);
+      }
+      printf("\n");
+    }
+    else printf("Mensagem do pacote: %s\n", pck->message);
+  }
+  printf("\n");
+  pthread_mutex_unlock(&(queue->mutex));
 }

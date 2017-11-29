@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#define REFRESH_TIME 5//Tempo entre os envios periodicos de vetor de distancia aos vizinhos
 #define MAX_QUEUE 1123456 //Tamanho máximo da fila =~ 1123456
 #define MAX_MESSAGE 200 //Tamanho maximo da mensagem
 #define MAX_ADRESS 50 //Tamanho máximo de um endereço
@@ -49,5 +50,8 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
 void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_list[NROUT],
                 neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]);
 void copy_package(package_t *a, package_t *b);
+void queue_dist_vec(pack_queue_t *out, int neigh_list[NROUT], dist_t routing_table[NROUT][NROUT],
+                    int id, int neigh_qtty);
+void print_pack_queue(pack_queue_t *queue);
 
 #endif

@@ -8,11 +8,13 @@ int slen = sizeof(si_me); //Tamanho do endereço
 neighbour_t neigh_info[NROUT]; //Informacoes dos vizinhos (custo, porta, endereco)
 dist_t routing_table[NROUT][NROUT]; //Tabela de roteamento do nó
 pack_queue_t in, out; //Filas de entrada e saida de pacotes
-pthread_t sender_id, receiver_id, unpacker_id; // Threads
+pthread_t sender_id, receiver_id, unpacker_id, refresher_id; // Threads
 
 void* sender(void *nothing); //Thread responsavel por enviar pacotes
 void* receiver(void *nothing); //Thread responsavel por receber pacotes
 void* unpacker(void *nothing); //Thread responsavel por desembrulhar pacotes e trata-los
+void* refresher(void *nothing); //Thread responsavel por enfileirar periodicamente pacotes de distancia
+                                //para todos os vizinhos
 
 int main(int argc, char *argv[]){
   if(argc < 2)
@@ -30,6 +32,7 @@ int main(int argc, char *argv[]){
   pthread_create(&sender_id, NULL, sender, NULL); //Cria thread enviadora
   pthread_create(&receiver_id, NULL, receiver, NULL); //Cria thread receptora
   pthread_create(&unpacker_id, NULL, unpacker, NULL); //Cria thread desempacotadora
+  pthread_create(&refresher_id, NULL, refresher, NULL); //Cria thread atualizadora
 
   while(1);
   close(sock);
@@ -38,14 +41,19 @@ int main(int argc, char *argv[]){
 }
 
 void* sender(void *nothing){
+  int new_dest;
+
   printf("[SENDER] Enviador iniciado!\n");
   while(1){
     pthread_mutex_lock(&out.mutex);
     while(out.begin != out.end){
       printf("[SENDER] Pacote de %s sendo processado para o nó %d\n",out.queue[out.begin].control ? "controle" : "dados",
             out.queue[out.begin].dest);
-      package_t *pck = &(out.queue[out.begin++]); //Aponta o pacote a ser enviado
-      int new_dest = routing_table[id][pck->dest].nhop; //Pega o próximo destino (next hop)
+      package_t *pck = &(out.queue[out.begin]); //Aponta o pacote a ser enviado
+
+      //TO CHECK
+      new_dest = routing_table[id][pck->dest].nhop; //Pega o próximo destino (next hop)
+
       si_send.sin_port = htons(neigh_info[new_dest].port); //Atribui a porta do pacote a ser enviado
       if (inet_aton(neigh_info[new_dest].adress , &si_send.sin_addr) == 0)
         printf("[SENDER] Falha ao obter endereco do destinatario\n");
@@ -55,15 +63,14 @@ void* sender(void *nothing){
           printf("\n[SENDER] Falha ao enviar pacote...\n");
         else printf("[SENDER] Pacote enviado com sucesso!\n");
       }
+      out.begin++;
     }
     pthread_mutex_unlock(&out.mutex);
-    //printf("[SENDER] Agora, um soninho...\n");
-    //sleep(INF);
   }
 }
 
 void* unpacker(void *nothing){
-  int i, changed, retransmit, new_min;
+  int i, retransmit;
   package_t *pck;
 
   printf("[UNPACKER] Desempacotador iniciado!\n");
@@ -71,33 +78,34 @@ void* unpacker(void *nothing){
     pthread_mutex_lock(&in.mutex);
     while(in.begin != in.end){
       pck = &in.queue[in.begin];
-      if(pck->dest == id){
+      if(pck->dest == id){ //Se o pacote é pra mim
         if(pck->control){
-          printf("[UNPACKER] Processando pacote de controle\n");
-          for(i = changed = 0; i < NROUT; i++){
+          printf("[UNPACKER] Processando pacote de controle vindo de %d\n", pck->orig);
+          for(i = retransmit = 0; i < NROUT; i++){
             //Se o vetor de distancias que o no enviou eh diferente do o no possui, atualiza
             if(routing_table[pck->orig][i].dist != pck->dist_vector[i].dist ||
                routing_table[pck->orig][i].nhop != pck->dist_vector[i].nhop){
               routing_table[pck->orig][i].dist = pck->dist_vector[i].dist;
               routing_table[pck->orig][i].nhop = pck->dist_vector[i].nhop;
-              changed = 1;
               //Se a distancia ate o destino, mais o custo ate o no for maior o que ja tem, relaxa
               if(pck->dist_vector[i].dist + neigh_info[pck->orig].cost < routing_table[id][i].dist){
                 routing_table[id][i].dist = pck->dist_vector[i].dist + neigh_info[pck->orig].cost;
                 routing_table[id][i].nhop = pck->orig;
+                retransmit = 1;
               }
             }
           }
-          if(changed){
-            info(id, port, adress, neigh_qtty, neigh_list, neigh_info, routing_table);
-
-          }
+          if(retransmit) queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
+          info(id, port, adress, neigh_qtty, neigh_list, neigh_info, routing_table);
         }
       }
-      else{
-
+      else{ //Se não é pra mim
+        pthread_mutex_lock(&out.mutex);
+        copy_package(pck, &out.queue[out.end++]); //Enfilero ele na fila de saida
+        pthread_mutex_unlock(&out.mutex);
       }
       in.begin++;
+      printf("Acabei de desempacotar\n");
     }
     pthread_mutex_unlock(&in.mutex);
   }
@@ -107,6 +115,7 @@ void* receiver(void *nothing){
   package_t received;
 
   while(1){
+    printf("Pronto pra receber\n");
     if ((recvfrom(sock, &received, sizeof(received), 0, (struct sockaddr *) &si_me,
         (socklen_t * restrict ) &slen)) == -1)
         printf("[RECEIVER] Erro ao receber pacote\n");
@@ -115,7 +124,16 @@ void* receiver(void *nothing){
       pthread_mutex_lock(&in.mutex);
       copy_package(&received, &in.queue[in.end++]); //Coloca o pacote no final da fila de recebidos
       pthread_mutex_unlock(&in.mutex);
+      print_pack_queue(&in);
       printf("%d %d\n", in.begin, in.end);
     }
+  }
+}
+
+void *refresher(void *nothing){
+  while(1){
+    queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
+    printf("[REFRESHER] Atualização de vetor distancia enfileirada\n");
+    sleep(REFRESH_TIME);
   }
 }
