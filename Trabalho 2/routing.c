@@ -19,12 +19,13 @@ int toint(char *str){
 void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
                 struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
                 int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out,
-                pthread_mutex_t *log_mutex, pthread_mutex_t *messages_mutex){
+                pthread_mutex_t *log_mutex, pthread_mutex_t *messages_mutex, pthread_mutex_t *news_mutex){
   int new_id, new_port, u, v, w, i, j;
   char tmp[MAX_ADRESS];
 
   //Inicializa o vetor de informações de vizinhos e a tabela de roteamento
   for(i = 0; i < NROUT; i++){
+    neigh_info[i].news = 0;
     neigh_info[i].id = neigh_info[i].port = -1;
     neigh_info[i].cost = INF;
     for(j = 0; j < NROUT; j++){
@@ -41,7 +42,7 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
     if(u == id){
       neigh_list[(*neigh_qtty)++] = v;
       neigh_info[v].id = v;
-      neigh_info[v].cost = w;
+      neigh_info[v].cost = neigh_info[v].orig_cost = w;
     }
   }
 
@@ -76,9 +77,11 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   pthread_mutex_init(&(in->mutex), NULL);
   pthread_mutex_init(&(out->mutex), NULL);
 
-  //Inicializa mutex dos arquivos de log e mensagens
+  //Inicializa mutex dos arquivos de log e mensagens e de checagem de queda de nó
   pthread_mutex_init(log_mutex, NULL);
   pthread_mutex_init(messages_mutex, NULL);
+  pthread_mutex_init(news_mutex, NULL);
+
 
   //Cria o socket(dominio, tipo, protocolo)
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
@@ -175,15 +178,25 @@ void print_pack_queue(pack_queue_t *queue){
 void print_rout_table(dist_t routing_table[NROUT][NROUT], FILE *file, int infile){
   int i, j;
 
+  if(infile) fprintf(file, "   ");
+  else printf("   ");
   for(i = 0; i < NROUT; i++){
+    if (infile) fprintf(file, "  %d %s|",i, i > 0 ? " " : "");
+    else printf("  %d %s|",i, i > 0 ? " " : "");
+  }
+  if(file) fprintf(file, "\n");
+  else printf("\n");
+  for(i = 0; i < NROUT; i++){
+    if(file) fprintf(file, "%d |", i);
+    else printf("%d |", i);
     for(j = 0; j < NROUT; j++){
       if(infile){
-        if(routing_table[i][j].dist != INF) fprintf(file, "%d(%d) ", routing_table[i][j].dist, routing_table[i][j].nhop);
-        else fprintf(file, "I(X) ");
+        if(routing_table[i][j].dist != INF) fprintf(file, "%d(%d)| ", routing_table[i][j].dist, routing_table[i][j].nhop);
+        else fprintf(file, "I(X)| ");
       }
       else{
-        if(routing_table[i][j].dist != INF) printf("%d(%d) ", routing_table[i][j].dist, routing_table[i][j].nhop);
-        else printf("I(X) ");
+        if(routing_table[i][j].dist != INF) printf("%d(%d)| ", routing_table[i][j].dist, routing_table[i][j].nhop);
+        else printf("I(X)| ");
       }
     }
     if(file) fprintf(file, "\n");

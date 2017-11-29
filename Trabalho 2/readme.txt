@@ -9,6 +9,9 @@ Author: Felipe Chabatura Neto - 1511100016
   REFRESH_TIME -> tempo em que cada roteador espera antes de mandar seu vetor de distancia aos vizinhos,
   periodicamente
 
+-Nas tabelas de roteamento, o numero fora do parenteses significa o custo até o destino, e o dentro do
+  parenteses o próximo salto
+
 -Antes de alterar a topologia da rede, altere a quantidade de nós (NROUT) no arquivo "routing.h"
 
 -A topologia da rede pode ser alterada no arquivo enlaces.config

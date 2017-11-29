@@ -11,7 +11,8 @@
 #include <pthread.h>
 
 #define CLEAR_LOG 1 //1 para ocultar informações sobre pacotes de controle
-#define REFRESH_TIME 5//Tempo entre os envios periodicos de vetor de distancia aos vizinhos
+#define REFRESH_TIME 2//Tempo entre os envios periodicos de vetor de distancia aos vizinhos
+#define TOLERANCY 2 * REFRESH_TIME //Tempo até o roteador assumir que o vizinho caiu
 #define MAX_QUEUE 1123456 //Tamanho máximo da fila =~ 1123456
 #define MAX_MESSAGE 200 //Tamanho maximo da mensagem
 #define MAX_ADRESS 50 //Tamanho máximo de um endereço
@@ -20,7 +21,7 @@
 
 //Estrutura de vizinho
 typedef struct{
-  int id, cost, port;
+  int id, orig_cost, cost, port, news;
   char adress[MAX_ADRESS];
 } neighbour_t;
 
@@ -48,7 +49,7 @@ int toint(char *str);
 void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
                 struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
                 int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out,
-                pthread_mutex_t *log_mutex, pthread_mutex_t *messages_mutex);
+                pthread_mutex_t *log_mutex, pthread_mutex_t *messages_mutex, pthread_mutex_t *news_mutex);
 void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_list[NROUT],
                 neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]);
 void copy_package(package_t *a, package_t *b);

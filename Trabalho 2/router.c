@@ -1,6 +1,6 @@
 #include "routing.h"
 
-int id, port, sock, new = 0, neigh_qtty = 0; //Id, porta, socket e numero de vizinhos do roteador
+int id, port, sock, neigh_qtty = 0; //Id, porta, socket e numero de vizinhos do roteador
 int neigh_list[NROUT]; //Lista de vizinhos do roteador
 char adress[MAX_ADRESS]; //Endereço do roteador (ip)
 struct sockaddr_in si_me, si_send; //Estrutura de endereço do roteador e outro usado para envios
@@ -8,8 +8,8 @@ int slen = sizeof(si_me); //Tamanho do endereço
 neighbour_t neigh_info[NROUT]; //Informacoes dos vizinhos (custo, porta, endereco)
 dist_t routing_table[NROUT][NROUT]; //Tabela de roteamento do nó
 pack_queue_t in, out; //Filas de entrada e saida de pacotes
-pthread_t sender_id, receiver_id, unpacker_id, refresher_id; // Threads
-pthread_mutex_t log_mutex, messages_mutex;
+pthread_t sender_id, receiver_id, unpacker_id, refresher_id, pulse_checker_id; //Id das threads
+pthread_mutex_t log_mutex, messages_mutex, news_mutex;
 FILE *logs, *messages;
 
 void* sender(void *nothing); //Thread responsavel por enviar pacotes
@@ -17,6 +17,7 @@ void* receiver(void *nothing); //Thread responsavel por receber pacotes
 void* unpacker(void *nothing); //Thread responsavel por desembrulhar pacotes e trata-los
 void* refresher(void *nothing); //Thread responsavel por enfileirar periodicamente pacotes de distancia
                                 //para todos os vizinhos
+void* pulse_checker(void *nothing); //Thread responsavel por verificar se os nós vizinhos estão vivos
 
 int main(int argc, char *argv[]){
   int op = -1, dest;
@@ -44,17 +45,18 @@ int main(int argc, char *argv[]){
 
   //Rotina de inicializacao do roteador
   initialize(id, &port, &sock, adress, &si_me, &si_send, neigh_list, neigh_info,
-              &neigh_qtty, routing_table, &in, &out, &log_mutex, &messages_mutex);
+              &neigh_qtty, routing_table, &in, &out, &log_mutex, &messages_mutex, &news_mutex);
 
   pthread_create(&sender_id, NULL, sender, NULL); //Cria thread enviadora
   pthread_create(&receiver_id, NULL, receiver, NULL); //Cria thread receptora
   pthread_create(&unpacker_id, NULL, unpacker, NULL); //Cria thread desempacotadora
   pthread_create(&refresher_id, NULL, refresher, NULL); //Cria thread atualizadora
+  //pthread_create(&pulse_checker_id, NULL, pulse_checker, NULL); //Cria thread checadora de vivicidade
 
   while(1){
     system("clear");
     if(op == -1){
-      printf("ROTEADOR %d| %d novas mensagens\n", id, new);
+      printf("ROTEADOR %d\n", id);
       printf("------------------------------------------------------\n");
       printf("0 - Atualizar\n");
       printf("1 - Informações sobre o roteador\n");
@@ -136,7 +138,7 @@ void* sender(void *nothing){
       new_dest = routing_table[id][pck->dest].nhop; //Pega o próximo destino (next hop)
 
       si_send.sin_port = htons(neigh_info[new_dest].port); //Atribui a porta do pacote a ser enviado
-      if (inet_aton(neigh_info[new_dest].adress , &si_send.sin_addr) == 0){
+      if (inet_aton(neigh_info[new_dest].adress , &si_send.sin_addr) == 0 && !CLEAR_LOG){
         pthread_mutex_lock(&log_mutex);
         fprintf(logs, "[SENDER] Falha ao obter endereco do destinatario\n");
         pthread_mutex_unlock(&log_mutex);
@@ -184,6 +186,10 @@ void* unpacker(void *nothing){
           pthread_mutex_unlock(&log_mutex);
         }
         if(pck->control){
+          //Marca que ouviu falar dele
+          pthread_mutex_lock(&news_mutex);
+          neigh_info[pck->orig].news = 1;
+          pthread_mutex_unlock(&news_mutex);
           for(i = retransmit = changed = 0; i < NROUT; i++){
             //Se o vetor de distancias que o no enviou eh diferente do o no possui, atualiza
             if(routing_table[pck->orig][i].dist != pck->dist_vector[i].dist ||
@@ -265,5 +271,64 @@ void *refresher(void *nothing){
     if(!CLEAR_LOG) fprintf(logs, "[REFRESHER] Enfileirando atualizações de vetor de distância\n");
     queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
     sleep(REFRESH_TIME);
+  }
+}
+
+void* pulse_checker(void *nothing){
+  int i, j, neigh, recalculate, through, new_min;
+
+  while(1){
+    sleep(TOLERANCY);
+
+    if(!CLEAR_LOG){
+      pthread_mutex_lock(&log_mutex);
+      fprintf(logs, "[PULSE_CHECKER] Checando...\n");
+      pthread_mutex_unlock(&log_mutex);
+    }
+
+    pthread_mutex_lock(&news_mutex);
+    for(i = 0; i < neigh_qtty; i++){
+      recalculate = 0;
+      neigh = neigh_list[i];
+      if(neigh_info[neigh].news){
+        neigh_info[neigh].news = 0;
+        if(neigh_info[neigh].cost == INF){
+          pthread_mutex_lock(&log_mutex);
+          fprintf(logs, "[PULSE_CHECKER] Parece que o nó %d Ressucitou!\n", neigh_info[neigh].id);
+          pthread_mutex_unlock(&log_mutex);
+          routing_table[id][neigh].dist = neigh_info[neigh].orig_cost;
+          routing_table[id][neigh].nhop = neigh;
+          neigh_info[neigh].cost = neigh_info[neigh].orig_cost;
+          recalculate = 1;
+        }
+      }
+      else if(neigh_info[neigh].cost != INF){
+        pthread_mutex_lock(&log_mutex);
+        fprintf(logs, "[PULSE_CHECKER] Parece que o nó %d morreu!\n", neigh_info[neigh].id);
+        pthread_mutex_unlock(&log_mutex);
+        routing_table[id][neigh].dist = INF;
+        routing_table[id][neigh].nhop = -1;
+        neigh_info[neigh].cost = INF;
+        recalculate = 1;
+      }
+      if(recalculate){
+        fprintf(logs, "[PULSE_CHECKER] Calculando novo vetor de distancia...\n");
+        for(i = 0; i < NROUT; i++){
+          if(routing_table[id][i].nhop == neigh){
+            new_min = INF; through = -1;
+            for(j = 0; j < NROUT; j++){
+              if(routing_table[j][i].dist + neigh_info[j].cost < new_min){ //JI?
+                new_min = routing_table[j][i].dist + neigh_info[j].cost;
+                through = j;
+              }
+            }
+            routing_table[id][i].dist = new_min;
+            routing_table[id][i].nhop = through;
+          }
+        }
+      }
+    }
+    pthread_mutex_unlock(&news_mutex);
+    if(recalculate) queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
   }
 }
