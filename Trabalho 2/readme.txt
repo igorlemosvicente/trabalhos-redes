@@ -1,25 +1,22 @@
 Author: Felipe Chabatura Neto - 1511100016
 
-/*
-ESTA VERSAO ESTA INCOMPLETA, NELA, TUDO QUE CADA ROTEADOR FAZ É:
--Carregar informações sobre sua porta e endereço
--Carregar informações sobre portas, endereços, e custos de enlace dos vizinhos imediatos
--Inicializar sua tabela de Roteamento
--Enfileirar um pacote para cada vizinho, contendo seu vetor de distancias
--Enviar os pacotes para os vizinhos (Esses, quando os recebem, nao fazem nada com eles)
-*/
-
 -Para compilar use: gcc router.c routing.c -o router -lpthread -Wall -O2
 
--Cada roteador deve ser instanciado executando ./router ID em um terminal diferente,
-onde ID é o numero do roteador instanciado
+-Configuracoes importantes (Constantes em "routing.h")
+  NROUT -> quantidade de nós na rede
+  CLEAR_LOG -> Se setado para 1, informações acerca do recebimento,envio e roteamento de Pacotes
+  de controle serão omitidas.
+  REFRESH_TIME -> tempo em que cada roteador espera antes de mandar seu vetor de distancia aos vizinhos,
+  periodicamente
+
+-Antes de alterar a topologia da rede, altere a quantidade de nós (NROUT) no arquivo "routing.h"
 
 -A topologia da rede pode ser alterada no arquivo enlaces.config
 
 -Informacoes sobre a porta utilizada por cada roteador, seus endereços, estão no arquivo
 roteador.config
 
--Uma imagem contendo a topologia default da rede acompanha este arquivo
+-Cada roteador deve ser instanciado executando ./router ID em um terminal diferente,
+onde ID é o numero do roteador instanciado
 
--Configuracoes importantes como numero de roteadores, tamanho maximo da mensagem e tamanho maximo das filas
- podem ser alteradas no arquivo routing.h
+-Uma imagem contendo a topologia default da rede acompanha este arquivo
