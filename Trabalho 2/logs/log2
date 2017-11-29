@@ -1,0 +1,1161 @@
+[SENDER] Enviador iniciado!
+[RECEIVER] Receptor iniciado!
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[UNPACKER] Desempacotador iniciado!
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[UNPACKER] A tabela foi atualizada:
+0(0) 4(2) 2(2) 4(2) 
+I(X) I(X) I(X) I(X) 
+2(0) 2(1) 0(2) 2(3) 
+I(X) I(X) I(X) I(X) 
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[UNPACKER] A tabela foi atualizada:
+0(0) 4(2) 2(2) 4(2) 
+4(2) 0(1) 2(2) 4(2) 
+2(0) 2(1) 0(2) 2(3) 
+I(X) I(X) I(X) I(X) 
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[UNPACKER] A tabela foi atualizada:
+0(0) 4(2) 2(2) 4(2) 
+4(2) 0(1) 2(2) 4(2) 
+2(0) 2(1) 0(2) 2(3) 
+I(X) I(X) 2(2) 0(3) 
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[UNPACKER] A tabela foi atualizada:
+0(0) 4(2) 2(2) 4(2) 
+4(2) 0(1) 2(2) 4(2) 
+2(0) 2(1) 0(2) 2(3) 
+4(2) 4(2) 2(2) 0(3) 
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[UNPACKER] Processando pacote de controle vindo de 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 1
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Roteando pacote com origem 0, para 1, via 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[RECEIVER] Pacote recebido de 0
+[UNPACKER] Processando pacote de controle vindo de 0
+[RECEIVER] Pacote recebido de 1
+[UNPACKER] Roteando pacote com origem 1, para 0, via 0
+[RECEIVER] Pacote recebido de 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[UNPACKER] Processando pacote de controle vindo de 1
+[REFRESHER] Enfileirando atualizações de vetor de distância
+[SENDER] Pacote de controle enviado com sucesso para o nó 0
+[SENDER] Pacote de controle enviado com sucesso para o nó 1
+[SENDER] Pacote de controle enviado com sucesso para o nó 3
+[RECEIVER] Pacote recebido de 3
+[UNPACKER] Processando pacote de controle vindo de 3

@@ -18,7 +18,8 @@ int toint(char *str){
 //Função com rotina de inicialização dos roteadores
 void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
                 struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
-                int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out){
+                int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out,
+                pthread_mutex_t *log_mutex){
   int new_id, new_port, u, v, w, i, j;
   char tmp[MAX_ADRESS];
 
@@ -75,6 +76,9 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   pthread_mutex_init(&(in->mutex), NULL);
   pthread_mutex_init(&(out->mutex), NULL);
 
+  //Inicializa mutex do arquivo de log
+  pthread_mutex_init(log_mutex, NULL);
+
   //Cria o socket(dominio, tipo, protocolo)
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     die("Falha ao criar Socket\n");
@@ -94,23 +98,17 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
 //Imprime informações sobre o roteador
 void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_list[NROUT],
     neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]){
-  int i, j;
+  int i;
 
-  // printf("O nó %d, está conectado à porta %d, Seu endereço é %s\n\n", id, port, adress);
-  // printf("Seus vizinhos são:\n");
-  // for(i = 0; i < neigh_qtty; i++)
-  //   printf("O roteador %d, com enlace de custo %d, na porta %d, e endereço %s\n", neigh_list[i],
-  //     neigh_info[neigh_list[i]].cost, neigh_info[neigh_list[i]].port, neigh_info[neigh_list[i]].adress);
-  // printf("\n");
+  printf("O nó %d, está conectado à porta %d, Seu endereço é %s\n\n", id, port, adress);
+  printf("Seus vizinhos são:\n");
+  for(i = 0; i < neigh_qtty; i++)
+    printf("O roteador %d, com enlace de custo %d, na porta %d, e endereço %s\n", neigh_list[i],
+      neigh_info[neigh_list[i]].cost, neigh_info[neigh_list[i]].port, neigh_info[neigh_list[i]].adress);
+  printf("\n");
 
   printf("Essa é sua tabela de roteamento, atualmente:\n");
-  for(i = 0; i < NROUT; i++){
-    for(j = 0; j < NROUT; j++){
-      if(routing_table[i][j].dist != INF) printf("%d(%d) ", routing_table[i][j].dist, routing_table[i][j].nhop);
-      else printf("I(X) ");
-    }
-    printf("\n");
-  }
+  print_rout_table(routing_table, NULL, 0);
 }
 
 //Copia o pacote a para o pacote b
@@ -170,4 +168,37 @@ void print_pack_queue(pack_queue_t *queue){
   }
   printf("\n");
   pthread_mutex_unlock(&(queue->mutex));
+}
+
+//Funcao que imprime a tabela de roteamento
+void print_rout_table(dist_t routing_table[NROUT][NROUT], FILE *file, int infile){
+  int i, j;
+
+  for(i = 0; i < NROUT; i++){
+    for(j = 0; j < NROUT; j++){
+      if(infile){
+        if(routing_table[i][j].dist != INF) fprintf(file, "%d(%d) ", routing_table[i][j].dist, routing_table[i][j].nhop);
+        else fprintf(file, "I(X) ");
+      }
+      else{
+        if(routing_table[i][j].dist != INF) printf("%d(%d) ", routing_table[i][j].dist, routing_table[i][j].nhop);
+        else printf("I(X) ");
+      }
+    }
+    if(file) fprintf(file, "\n");
+    else printf("\n");
+  }
+}
+
+void print_log(FILE *log, pthread_mutex_t *mutex){
+  char str[100];
+  printf("----------------------LOG----------------------\n");
+  pthread_mutex_lock(mutex);
+  fseek(log, 0, SEEK_SET);
+  while(fgets(str, 100, log)){
+    printf("%s", str);
+  }
+  fseek(log, 0, SEEK_END);
+  pthread_mutex_unlock(mutex);
+  printf("----------------------END----------------------\n");
 }

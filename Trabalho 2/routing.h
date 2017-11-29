@@ -46,12 +46,15 @@ void die(char* msg);
 int toint(char *str);
 void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
                 struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
-                int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out);
+                int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out,
+                pthread_mutex_t *log_mutex);
 void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_list[NROUT],
                 neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]);
 void copy_package(package_t *a, package_t *b);
 void queue_dist_vec(pack_queue_t *out, int neigh_list[NROUT], dist_t routing_table[NROUT][NROUT],
                     int id, int neigh_qtty);
 void print_pack_queue(pack_queue_t *queue);
+void print_rout_table(dist_t routing_table[NROUT][NROUT], FILE *file, int infile);
+void print_log(FILE *log, pthread_mutex_t *mutex);
 
 #endif
