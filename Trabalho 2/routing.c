@@ -19,7 +19,7 @@ int toint(char *str){
 void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
                 struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
                 int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out,
-                pthread_mutex_t *log_mutex){
+                pthread_mutex_t *log_mutex, pthread_mutex_t *messages_mutex){
   int new_id, new_port, u, v, w, i, j;
   char tmp[MAX_ADRESS];
 
@@ -76,8 +76,9 @@ void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct so
   pthread_mutex_init(&(in->mutex), NULL);
   pthread_mutex_init(&(out->mutex), NULL);
 
-  //Inicializa mutex do arquivo de log
+  //Inicializa mutex dos arquivos de log e mensagens
   pthread_mutex_init(log_mutex, NULL);
+  pthread_mutex_init(messages_mutex, NULL);
 
   //Cria o socket(dominio, tipo, protocolo)
   if((*sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
@@ -190,15 +191,13 @@ void print_rout_table(dist_t routing_table[NROUT][NROUT], FILE *file, int infile
   }
 }
 
-void print_log(FILE *log, pthread_mutex_t *mutex){
+void print_file(FILE *file, pthread_mutex_t *mutex){
   char str[100];
-  printf("----------------------LOG----------------------\n");
   pthread_mutex_lock(mutex);
-  fseek(log, 0, SEEK_SET);
-  while(fgets(str, 100, log)){
+  fseek(file, 0, SEEK_SET);
+  while(fgets(str, 100, file)){
     printf("%s", str);
   }
-  fseek(log, 0, SEEK_END);
+  fseek(file, 0, SEEK_END);
   pthread_mutex_unlock(mutex);
-  printf("----------------------END----------------------\n");
 }

@@ -9,7 +9,7 @@ neighbour_t neigh_info[NROUT]; //Informacoes dos vizinhos (custo, porta, enderec
 dist_t routing_table[NROUT][NROUT]; //Tabela de roteamento do nó
 pack_queue_t in, out; //Filas de entrada e saida de pacotes
 pthread_t sender_id, receiver_id, unpacker_id, refresher_id; // Threads
-pthread_mutex_t log_mutex;
+pthread_mutex_t log_mutex, messages_mutex;
 FILE *logs, *messages;
 
 void* sender(void *nothing); //Thread responsavel por enviar pacotes
@@ -19,9 +19,11 @@ void* refresher(void *nothing); //Thread responsavel por enfileirar periodicamen
                                 //para todos os vizinhos
 
 int main(int argc, char *argv[]){
-  int op = -1;
+  int op = -1, dest;
+  char message[MAX_MESSAGE];
   char log_path[20] = "./logs/log";
   char message_path[20] = "./messages/message";
+  package_t pck;
 
   if(argc < 2)
     die("Argumentos insuficientes, informe o ID do roteador a ser instanciado");
@@ -38,11 +40,11 @@ int main(int argc, char *argv[]){
   if(!(logs = fopen(log_path, "w+"))) die("Falha ao criar arquivo de log");
 
   //Cria o arquivo para armazenar as mensagens
-  if(!(messages = fopen(message_path, "w"))) die("Falha ao criar arquivo de mensagens");
+  if(!(messages = fopen(message_path, "w+"))) die("Falha ao criar arquivo de mensagens");
 
   //Rotina de inicializacao do roteador
   initialize(id, &port, &sock, adress, &si_me, &si_send, neigh_list, neigh_info,
-              &neigh_qtty, routing_table, &in, &out, &log_mutex);
+              &neigh_qtty, routing_table, &in, &out, &log_mutex, &messages_mutex);
 
   pthread_create(&sender_id, NULL, sender, NULL); //Cria thread enviadora
   pthread_create(&receiver_id, NULL, receiver, NULL); //Cria thread receptora
@@ -70,11 +72,39 @@ int main(int argc, char *argv[]){
       else op = 1;
     }
     else if(op == 2){
-      print_log(logs, &log_mutex);
+      printf("----------------------LOG----------------------\n");
+      print_file(logs, &log_mutex);
+      printf("----------------------END----------------------\n");
       printf("\nInsira 0 para voltar, 1 para atualizar\n");
       scanf("%d", &op);
       if(op == 0) op = -1;
       else op = 2;
+    }
+    else if (op == 3){
+      printf("-------------------MESSAGES--------------------\n");
+      print_file(messages, &messages_mutex);
+      printf("---------------------END-----------------------\n");
+      printf("\nInsira 0 para voltar, 1 para atualizar\n");
+      scanf("%d", &op);
+      if(op == 0) op = -1;
+      else op = 3;
+    }
+    else if(op == 4){
+      printf("Insira o roteador de destino: ");
+      scanf("%d", &dest);
+      getchar();
+      printf("Insira a mensagem uma mensagem de no máximo %d caracteres:\n", MAX_MESSAGE);
+      fgets(message, MAX_MESSAGE, stdin);
+      pck.dest = dest; pck.control = 0;
+      pck.orig = id;
+      strcpy(pck.message, message);
+      pthread_mutex_lock(&out.mutex);
+      copy_package(&pck, &out.queue[out.end++]); //Enfilera o novo pacote na fila de saida
+      pthread_mutex_unlock(&out.mutex);
+
+      printf("Mensagem encaminhada!\n");
+      sleep(3);
+      op = -1;
     }
     else if(op == 5){
       system("clear");
@@ -92,6 +122,7 @@ int main(int argc, char *argv[]){
 
 void* sender(void *nothing){
   int new_dest;
+  package_t *pck;
 
   pthread_mutex_lock(&log_mutex);
   fprintf(logs, "[SENDER] Enviador iniciado!\n");
@@ -99,7 +130,7 @@ void* sender(void *nothing){
   while(1){
     pthread_mutex_lock(&out.mutex);
     while(out.begin != out.end){
-      package_t *pck = &(out.queue[out.begin]); //Aponta o pacote a ser enviado
+      pck = &(out.queue[out.begin]); //Aponta o pacote a ser enviado
 
       //TO CHECK
       new_dest = routing_table[id][pck->dest].nhop; //Pega o próximo destino (next hop)
@@ -119,10 +150,12 @@ void* sender(void *nothing){
           pthread_mutex_unlock(&log_mutex);
         }
         else{
-          pthread_mutex_lock(&log_mutex);
-          fprintf(logs, "[SENDER] Pacote de %s enviado com sucesso para o nó %d\n"
-                  ,out.queue[out.begin].control ? "controle" : "dados", out.queue[out.begin].dest);
-          pthread_mutex_unlock(&log_mutex);
+          if(!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
+            pthread_mutex_lock(&log_mutex);
+            fprintf(logs, "[SENDER] Pacote de %s enviado com sucesso para o nó %d\n"
+                    ,out.queue[out.begin].control ? "controle" : "dados", out.queue[out.begin].dest);
+            pthread_mutex_unlock(&log_mutex);
+          }
         }
       }
       out.begin++;
@@ -144,10 +177,13 @@ void* unpacker(void *nothing){
     while(in.begin != in.end){
       pck = &in.queue[in.begin];
       if(pck->dest == id){ //Se o pacote é pra mim
-        if(pck->control){
+        if(!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
           pthread_mutex_lock(&log_mutex);
-          fprintf(logs, "[UNPACKER] Processando pacote de controle vindo de %d\n", pck->orig);
+          fprintf(logs, "[UNPACKER] Processando pacote de %s vindo de %d\n",
+            pck->control ? "controle" : "mensagem", pck->orig);
           pthread_mutex_unlock(&log_mutex);
+        }
+        if(pck->control){
           for(i = retransmit = changed = 0; i < NROUT; i++){
             //Se o vetor de distancias que o no enviou eh diferente do o no possui, atualiza
             if(routing_table[pck->orig][i].dist != pck->dist_vector[i].dist ||
@@ -176,11 +212,19 @@ void* unpacker(void *nothing){
             pthread_mutex_unlock(&log_mutex);
           }
         }
+        else{ //Se é uma mensagem
+          pthread_mutex_lock(&messages_mutex);
+          fprintf(messages, "Roteador %d: ", pck->orig);
+          fprintf(messages, "%s", pck->message);
+          pthread_mutex_unlock(&messages_mutex);
+        }
       }
       else{ //Se não é pra mim
-        pthread_mutex_lock(&log_mutex);
-        fprintf(logs, "[UNPACKER] Roteando pacote com origem %d, para %d, via %d\n", pck->orig, pck->dest, routing_table[id][pck->dest].nhop);
-        pthread_mutex_unlock(&log_mutex);
+        if(!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
+          pthread_mutex_lock(&log_mutex);
+          fprintf(logs, "[UNPACKER] Roteando pacote com origem %d, para %d, via %d\n", pck->orig, pck->dest, routing_table[id][pck->dest].nhop);
+          pthread_mutex_unlock(&log_mutex);
+        }
         pthread_mutex_lock(&out.mutex);
         copy_package(pck, &out.queue[out.end++]); //Enfilero ele na fila de saida
         pthread_mutex_unlock(&out.mutex);
@@ -203,9 +247,11 @@ void* receiver(void *nothing){
         (socklen_t * restrict ) &slen)) == -1)
         printf("[RECEIVER] Erro ao receber pacote\n");
     else{
-      pthread_mutex_lock(&log_mutex);
-      fprintf(logs, "[RECEIVER] Pacote recebido de %d\n", received.orig);
-      pthread_mutex_unlock(&log_mutex);
+      if(!CLEAR_LOG || (CLEAR_LOG && !received.control)){
+        pthread_mutex_lock(&log_mutex);
+        fprintf(logs, "[RECEIVER] Pacote recebido de %d\n", received.orig);
+        pthread_mutex_unlock(&log_mutex);
+      }
       pthread_mutex_lock(&in.mutex);
       copy_package(&received, &in.queue[in.end++]); //Coloca o pacote no final da fila de recebidos
       pthread_mutex_unlock(&in.mutex);
@@ -216,7 +262,7 @@ void* receiver(void *nothing){
 
 void *refresher(void *nothing){
   while(1){
-    fprintf(logs, "[REFRESHER] Enfileirando atualizações de vetor de distância\n");
+    if(!CLEAR_LOG) fprintf(logs, "[REFRESHER] Enfileirando atualizações de vetor de distância\n");
     queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
     sleep(REFRESH_TIME);
   }

@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#define CLEAR_LOG 1 //1 para ocultar informações sobre pacotes de controle
 #define REFRESH_TIME 5//Tempo entre os envios periodicos de vetor de distancia aos vizinhos
 #define MAX_QUEUE 1123456 //Tamanho máximo da fila =~ 1123456
 #define MAX_MESSAGE 200 //Tamanho maximo da mensagem
@@ -47,7 +48,7 @@ int toint(char *str);
 void initialize(int id, int *port, int *sock, char adress[MAX_ADRESS], struct sockaddr_in *si_me,
                 struct sockaddr_in *si_send, int neigh_list[NROUT], neighbour_t neigh_info[NROUT],
                 int *neigh_qtty, dist_t routing_table[NROUT][NROUT], pack_queue_t *in, pack_queue_t *out,
-                pthread_mutex_t *log_mutex);
+                pthread_mutex_t *log_mutex, pthread_mutex_t *messages_mutex);
 void info(int id, int port, char adress[MAX_ADRESS], int neigh_qtty, int neigh_list[NROUT],
                 neighbour_t neigh_info[NROUT], dist_t routing_table[NROUT][NROUT]);
 void copy_package(package_t *a, package_t *b);
@@ -55,6 +56,6 @@ void queue_dist_vec(pack_queue_t *out, int neigh_list[NROUT], dist_t routing_tab
                     int id, int neigh_qtty);
 void print_pack_queue(pack_queue_t *queue);
 void print_rout_table(dist_t routing_table[NROUT][NROUT], FILE *file, int infile);
-void print_log(FILE *log, pthread_mutex_t *mutex);
+void print_file(FILE *file, pthread_mutex_t *mutex);
 
 #endif
