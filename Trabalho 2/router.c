@@ -15,9 +15,9 @@ FILE *logs, *messages;
 void* sender(void *nothing); //Thread responsavel por enviar pacotes
 void* receiver(void *nothing); //Thread responsavel por receber pacotes
 void* unpacker(void *nothing); //Thread responsavel por desembrulhar pacotes e trata-los
-void* refresher(void *nothing); //Thread responsavel por enfileirar periodicamente pacotes de distancia
-                                //para todos os vizinhos
+void* refresher(void *nothing); //Thread responsavel por enfileirar periodicamente pacotes de distancia para todos os vizinhos
 void* pulse_checker(void *nothing); //Thread responsavel por verificar se os nós vizinhos estão vivos
+int back_option_menu(int fallback_option); // Função auxiliar do menu. Retorna -1 caso o usuário deseje voltar ou +fallback_option+ caso o usuário queira atualizar
 
 int main(int argc, char *argv[]){
   int menu_option = -1;
@@ -27,12 +27,16 @@ int main(int argc, char *argv[]){
   char message_path[20] = "./messages/message";
   package_t pck;
 
+  // Certifica-se que os argumentos são válidos ao iniciar o programa
   if(argc < 2)
     die("Argumentos insuficientes, informe o ID do roteador a ser instanciado");
-  if(argc > 2)
+  if(argc > 2) {
     die("Argumentos demais, informe apenas o ID do roteador a ser instanciado");
-  id = toint(argv[1]);
-  if(id < 0 || id >= NROUT) die("Não existe um roteador com este id, confira o arquivo de configuração");
+  }
+  id = toint(argv[1]); // Inicializa variável global com o ID do processo
+  if (id < 0 || id >= NROUT) {
+    die("Não existe um roteador com este id, confira o arquivo de configuração");
+  }
 
   //Adiciona id do roteador ao caminho dos arquivos de mensagem e log
   strcat(log_path, argv[1]);
@@ -48,7 +52,7 @@ int main(int argc, char *argv[]){
   initialize(id, &port, &sock, adress, &si_me, &si_send, neigh_list, neigh_info,
               &neigh_qtty, routing_table, &in, &out, &log_mutex, &messages_mutex, &news_mutex);
 
-  pthread_create(&sender_id, NULL, sender, NULL); //Cria thread enviadora
+  pthread_create(&sender_id, NULL, sender, NULL); //Cria thread emitidora
   pthread_create(&receiver_id, NULL, receiver, NULL); //Cria thread receptora
   pthread_create(&unpacker_id, NULL, unpacker, NULL); //Cria thread desempacotadora
   pthread_create(&refresher_id, NULL, refresher, NULL); //Cria thread atualizadora
@@ -71,28 +75,19 @@ int main(int argc, char *argv[]){
     }
     else if(menu_option == 1){
       info(id, port, adress, neigh_qtty, neigh_list, neigh_info, routing_table);
-      printf("\nInsira 0 para voltar, 1 para atualizar\n");
-      scanf("%d", &menu_option);
-      if(menu_option == 0) menu_option = -1;
-      else menu_option = 1;
+      menu_option = back_option_menu(1);
     }
     else if(menu_option == 2){
       printf("----------------------LOG----------------------\n");
       print_file(logs, &log_mutex);
       printf("----------------------END----------------------\n");
-      printf("\nInsira 0 para voltar, 1 para atualizar\n");
-      scanf("%d", &menu_option);
-      if(menu_option == 0) menu_option = -1;
-      else menu_option = 2;
+      menu_option = back_option_menu(2);
     }
     else if (menu_option == 3){
       printf("-------------------MESSAGES--------------------\n");
       print_file(messages, &messages_mutex);
       printf("---------------------END-----------------------\n");
-      printf("\nInsira 0 para voltar, 1 para atualizar\n");
-      scanf("%d", &menu_option);
-      if(menu_option == 0) menu_option = -1;
-      else menu_option = 3;
+      menu_option = back_option_menu(3);
     }
     else if(menu_option == 4){
       printf("Insira o roteador de destino: ");
@@ -125,6 +120,14 @@ int main(int argc, char *argv[]){
   fclose(messages);
 
   return 0;
+}
+
+// Função auxiliar do menu. Retorna -1 caso o usuário deseje voltar ou +fallback_option+ caso o usuário queira atualizar
+int back_option_menu(int fallback_option) {
+  int option;
+  printf("\nInsira 0 para voltar, 1 para atualizar\n");
+  scanf("%d", &option);
+  return !option ? -1 : fallback_option;
 }
 
 void* sender(void *nothing){
