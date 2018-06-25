@@ -28,9 +28,9 @@ int main(int argc, char *argv[]){
   package_t pck;
 
   // Certifica-se que os argumentos são válidos ao iniciar o programa
-  if(argc < 2)
+  if (argc < 2)
     die("Argumentos insuficientes, informe o ID do roteador a ser instanciado");
-  if(argc > 2) {
+  if (argc > 2) {
     die("Argumentos demais, informe apenas o ID do roteador a ser instanciado");
   }
   id = toint(argv[1]); // Inicializa variável global com o ID do processo
@@ -43,10 +43,10 @@ int main(int argc, char *argv[]){
   strcat(message_path, argv[1]);
 
   //Cria o arquivo para armazenar os logs
-  if(!(logs = fopen(log_path, "w+"))) die("Falha ao criar arquivo de log");
+  if (!(logs = fopen(log_path, "w+"))) die("Falha ao criar arquivo de log");
 
   //Cria o arquivo para armazenar as mensagens
-  if(!(messages = fopen(message_path, "w+"))) die("Falha ao criar arquivo de mensagens");
+  if (!(messages = fopen(message_path, "w+"))) die("Falha ao criar arquivo de mensagens");
 
   //Rotina de inicializacao do roteador
   initialize(id, &port, &sock, adress, &si_me, &si_send, neigh_list, neigh_info,
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]){
 
   while(1){
     system("clear");
-    if(menu_option <= -1){
+    if (menu_option <= -1){
       if (menu_option == -2) { printf("Opção inválida\n\n"); }
 
       printf("ROTEADOR %d\n", id);
@@ -72,28 +72,36 @@ int main(int argc, char *argv[]){
       printf("4 - Escrever Mensagem\n");
       printf("5 - Sair\n\n");
       scanf("%d", &menu_option);
+      continue;
     }
-    else if(menu_option == 1){
+
+    if (menu_option == 1){
       info(id, port, adress, neigh_qtty, neigh_list, neigh_info, routing_table);
       menu_option = back_option_menu(1);
+      continue;
     }
-    else if(menu_option == 2){
+
+    if (menu_option == 2){
       printf("----------------------LOG----------------------\n");
       print_file(logs, &log_mutex);
       printf("----------------------END----------------------\n");
       menu_option = back_option_menu(2);
+      continue;
     }
-    else if (menu_option == 3){
+
+    if (menu_option == 3){
       printf("-------------------MESSAGES--------------------\n");
       print_file(messages, &messages_mutex);
       printf("---------------------END-----------------------\n");
       menu_option = back_option_menu(3);
+      continue;
     }
-    else if(menu_option == 4){
+
+    if (menu_option == 4){
       printf("Insira o roteador de destino: ");
       scanf("%d", &dest);
       getchar();
-      printf("Insira a mensagem uma mensagem de no máximo %d caracteres:\n", MAX_MESSAGE);
+      printf("Insira uma mensagem de no máximo %d caracteres:\n", MAX_MESSAGE);
       fgets(message, MAX_MESSAGE, stdin);
       pck.dest = dest; pck.control = 0;
       pck.orig = id;
@@ -105,13 +113,15 @@ int main(int argc, char *argv[]){
       printf("Mensagem encaminhada!\n");
       sleep(3);
       menu_option = -1;
+      continue;
     }
-    else if(menu_option == 5){
+
+    if (menu_option == 5){
       system("clear");
       break;
-    } else {
-      menu_option = -2;
+      continue;
     }
+    menu_option = -2;
   }
 
   //Fecha sockets e arquivos
@@ -160,7 +170,7 @@ void* sender(void *nothing){
           pthread_mutex_unlock(&log_mutex);
         }
         else{
-          if(!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
+          if (!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
             pthread_mutex_lock(&log_mutex);
             fprintf(logs, "[SENDER] Pacote de %s enviado com sucesso para o nó %d\n"
                     ,out.queue[out.begin].control ? "controle" : "dados", out.queue[out.begin].dest);
@@ -186,40 +196,40 @@ void* unpacker(void *nothing){
     pthread_mutex_lock(&in.mutex);
     while(in.begin != in.end){
       pck = &in.queue[in.begin];
-      if(pck->dest == id){ //Se o pacote é pra mim
-        if(!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
+      if (pck->dest == id){ //Se o pacote é pra mim
+        if (!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
           pthread_mutex_lock(&log_mutex);
           fprintf(logs, "[UNPACKER] Processando pacote de %s vindo de %d\n",
             pck->control ? "controle" : "mensagem", pck->orig);
           pthread_mutex_unlock(&log_mutex);
         }
-        if(pck->control){
+        if (pck->control){
           //Marca que ouviu falar dele
           pthread_mutex_lock(&news_mutex);
           neigh_info[pck->orig].news = 1;
           pthread_mutex_unlock(&news_mutex);
           for(i = retransmit = changed = 0; i < NROUT; i++){
             //Se o vetor de distancias que o no enviou eh diferente do o no possui, atualiza
-            if(routing_table[pck->orig][i].dist != pck->dist_vector[i].dist ||
+            if (routing_table[pck->orig][i].dist != pck->dist_vector[i].dist ||
                routing_table[pck->orig][i].nhop != pck->dist_vector[i].nhop){
               routing_table[pck->orig][i].dist = pck->dist_vector[i].dist;
               routing_table[pck->orig][i].nhop = pck->dist_vector[i].nhop;
               changed = 1;
               //Se a distancia ate o destino, mais o custo ate o no for maior o que ja tem, relaxa
-              if(pck->dist_vector[i].dist + neigh_info[pck->orig].cost < routing_table[id][i].dist){
+              if (pck->dist_vector[i].dist + neigh_info[pck->orig].cost < routing_table[id][i].dist){
                 routing_table[id][i].dist = pck->dist_vector[i].dist + neigh_info[pck->orig].cost;
                 routing_table[id][i].nhop = pck->orig;
                 retransmit = 1;
               }
             }
           }
-          if(changed){
+          if (changed){
             pthread_mutex_lock(&log_mutex);
             fprintf(logs, "[UNPACKER] A tabela foi atualizada:\n");
             print_rout_table(routing_table, logs, 1);
             pthread_mutex_unlock(&log_mutex);
           }
-          if(retransmit){
+          if (retransmit){
             pthread_mutex_lock(&log_mutex);
             fprintf(logs, "[UNPACKER] O vetor de distancias mudou, enfileirando atualização pros vizinhos.\n");
             queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
@@ -234,7 +244,7 @@ void* unpacker(void *nothing){
         }
       }
       else{ //Se não é pra mim
-        if(!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
+        if (!CLEAR_LOG || (CLEAR_LOG && !pck->control)){
           pthread_mutex_lock(&log_mutex);
           fprintf(logs, "[UNPACKER] Roteando pacote com origem %d, para %d, via %d\n", pck->orig, pck->dest, routing_table[id][pck->dest].nhop);
           pthread_mutex_unlock(&log_mutex);
@@ -258,25 +268,29 @@ void* receiver(void *nothing){
 
   while(1){
     if ((recvfrom(sock, &received, sizeof(received), 0, (struct sockaddr *) &si_me,
-        (socklen_t * restrict ) &slen)) == -1)
-        printf("[RECEIVER] Erro ao receber pacote\n");
-    else{
-      if(!CLEAR_LOG || (CLEAR_LOG && !received.control)){
-        pthread_mutex_lock(&log_mutex);
-        fprintf(logs, "[RECEIVER] Pacote recebido de %d\n", received.orig);
-        pthread_mutex_unlock(&log_mutex);
-      }
-      pthread_mutex_lock(&in.mutex);
-      copy_package(&received, &in.queue[in.end++]); //Coloca o pacote no final da fila de recebidos
-      pthread_mutex_unlock(&in.mutex);
-      //print_pack_queue(&in);
+      (socklen_t * restrict ) &slen)) == -1) {
+      printf("[RECEIVER] Erro ao receber pacote\n");
+      continue;
     }
+
+    if (!CLEAR_LOG || (CLEAR_LOG && !received.control)){
+      pthread_mutex_lock(&log_mutex);
+      fprintf(logs, "[RECEIVER] Pacote recebido de %d\n", received.orig);
+      pthread_mutex_unlock(&log_mutex);
+    }
+
+    pthread_mutex_lock(&in.mutex);
+    copy_package(&received, &in.queue[in.end++]); //Coloca o pacote no final da fila de recebidos
+    pthread_mutex_unlock(&in.mutex);
+    //print_pack_queue(&in);
   }
 }
 
 void *refresher(void *nothing){
   while(1){
-    if(!CLEAR_LOG) fprintf(logs, "[REFRESHER] Enfileirando atualizações de vetor de distância\n");
+    if (!CLEAR_LOG) {
+      fprintf(logs, "[REFRESHER] Enfileirando atualizações de vetor de distância\n");
+    }
     queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
     sleep(REFRESH_TIME);
   }
@@ -288,7 +302,7 @@ void* pulse_checker(void *nothing){
   while(1){
     sleep(TOLERANCY);
 
-    if(!CLEAR_LOG){
+    if (!CLEAR_LOG){
       pthread_mutex_lock(&log_mutex);
       fprintf(logs, "[PULSE_CHECKER] Checando...\n");
       pthread_mutex_unlock(&log_mutex);
@@ -298,9 +312,9 @@ void* pulse_checker(void *nothing){
     for(i = 0; i < neigh_qtty; i++){
       recalculate = 0;
       neigh = neigh_list[i];
-      if(neigh_info[neigh].news){
+      if (neigh_info[neigh].news){
         neigh_info[neigh].news = 0;
-        if(neigh_info[neigh].cost == INF){
+        if (neigh_info[neigh].cost == INF){
           pthread_mutex_lock(&log_mutex);
           fprintf(logs, "[PULSE_CHECKER] Parece que o nó %d Ressucitou!\n", neigh_info[neigh].id);
           pthread_mutex_unlock(&log_mutex);
@@ -310,7 +324,7 @@ void* pulse_checker(void *nothing){
           recalculate = 1;
         }
       }
-      else if(neigh_info[neigh].cost != INF){
+      else if (neigh_info[neigh].cost != INF){
         pthread_mutex_lock(&log_mutex);
         fprintf(logs, "[PULSE_CHECKER] Parece que o nó %d morreu!\n", neigh_info[neigh].id);
         pthread_mutex_unlock(&log_mutex);
@@ -319,13 +333,13 @@ void* pulse_checker(void *nothing){
         neigh_info[neigh].cost = INF;
         recalculate = 1;
       }
-      if(recalculate){
+      if (recalculate){
         fprintf(logs, "[PULSE_CHECKER] Calculando novo vetor de distancia...\n");
         for(i = 0; i < NROUT; i++){
-          if(routing_table[id][i].nhop == neigh){
+          if (routing_table[id][i].nhop == neigh){
             new_min = INF; through = -1;
             for(j = 0; j < NROUT; j++){
-              if(routing_table[j][i].dist + neigh_info[j].cost < new_min){ //JI?
+              if (routing_table[j][i].dist + neigh_info[j].cost < new_min){ //JI?
                 new_min = routing_table[j][i].dist + neigh_info[j].cost;
                 through = j;
               }
@@ -337,6 +351,8 @@ void* pulse_checker(void *nothing){
       }
     }
     pthread_mutex_unlock(&news_mutex);
-    if(recalculate) queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
+    if (recalculate) {
+      queue_dist_vec(&out, neigh_list, routing_table, id, neigh_qtty);
+    }
   }
 }
