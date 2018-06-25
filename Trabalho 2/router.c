@@ -20,7 +20,8 @@ void* refresher(void *nothing); //Thread responsavel por enfileirar periodicamen
 void* pulse_checker(void *nothing); //Thread responsavel por verificar se os nós vizinhos estão vivos
 
 int main(int argc, char *argv[]){
-  int op = -1, dest;
+  int menu_option = -1;
+  int dest;
   char message[MAX_MESSAGE];
   char log_path[20] = "./logs/log";
   char message_path[20] = "./messages/message";
@@ -55,43 +56,45 @@ int main(int argc, char *argv[]){
 
   while(1){
     system("clear");
-    if(op == -1){
+    if(menu_option <= -1){
+      if (menu_option == -2) { printf("Opção inválida\n\n"); }
+
       printf("ROTEADOR %d\n", id);
       printf("------------------------------------------------------\n");
-      printf("0 - Atualizar\n");
+      printf("? - Atualizar\n");
       printf("1 - Informações sobre o roteador\n");
       printf("2 - Log\n");
       printf("3 - Ler Mensagens\n");
       printf("4 - Escrever Mensagem\n");
       printf("5 - Sair\n\n");
-      scanf("%d", &op);
+      scanf("%d", &menu_option);
     }
-    else if(op == 1){
+    else if(menu_option == 1){
       info(id, port, adress, neigh_qtty, neigh_list, neigh_info, routing_table);
       printf("\nInsira 0 para voltar, 1 para atualizar\n");
-      scanf("%d", &op);
-      if(op == 0) op = -1;
-      else op = 1;
+      scanf("%d", &menu_option);
+      if(menu_option == 0) menu_option = -1;
+      else menu_option = 1;
     }
-    else if(op == 2){
+    else if(menu_option == 2){
       printf("----------------------LOG----------------------\n");
       print_file(logs, &log_mutex);
       printf("----------------------END----------------------\n");
       printf("\nInsira 0 para voltar, 1 para atualizar\n");
-      scanf("%d", &op);
-      if(op == 0) op = -1;
-      else op = 2;
+      scanf("%d", &menu_option);
+      if(menu_option == 0) menu_option = -1;
+      else menu_option = 2;
     }
-    else if (op == 3){
+    else if (menu_option == 3){
       printf("-------------------MESSAGES--------------------\n");
       print_file(messages, &messages_mutex);
       printf("---------------------END-----------------------\n");
       printf("\nInsira 0 para voltar, 1 para atualizar\n");
-      scanf("%d", &op);
-      if(op == 0) op = -1;
-      else op = 3;
+      scanf("%d", &menu_option);
+      if(menu_option == 0) menu_option = -1;
+      else menu_option = 3;
     }
-    else if(op == 4){
+    else if(menu_option == 4){
       printf("Insira o roteador de destino: ");
       scanf("%d", &dest);
       getchar();
@@ -106,11 +109,13 @@ int main(int argc, char *argv[]){
 
       printf("Mensagem encaminhada!\n");
       sleep(3);
-      op = -1;
+      menu_option = -1;
     }
-    else if(op == 5){
+    else if(menu_option == 5){
       system("clear");
       break;
+    } else {
+      menu_option = -2;
     }
   }
 
